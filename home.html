@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Element Grabber</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      fetch("https://www.discover.com/credit-cards/cash-back/cashback-calendar.html")
+        .then(response => response.text())
+        .then(data => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(data, "text/html");
+
+          const element = htmlDoc.querySelector('#offer_33319 > div > div.col-xs-12.col-sm-6.col-lg-6.offer-mob-view > h3');
+          if (element) {
+            document.getElementById("result").innerHTML = element.outerHTML;
+          } else {
+            document.getElementById("result").textContent = "Element not found.";
+          }
+        })
+        .catch(error => {
+          document.getElementById("result").textContent = "Error fetching the webpage: " + error;
+        });
+    });
+  </script>
+</head>
+<body>
+  <h1>Element Grabber</h1>
+  <div id="result"></div>
+</body>
+</html>
